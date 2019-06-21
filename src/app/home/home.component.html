@@ -1,0 +1,164 @@
+<div class="jumbotron" style="padding: 2rem 2rem;">
+  <h3 class="">Do you have a Heart Disease?</h3>
+  <p class="lead">Let's check it out with the help of Artificial Neural Networks and Data Mining.</p>
+  <hr class="my-4">
+  <div class="card bg-light" style="width: 100%;">
+    <div class="card-header">Fill this form with required parameters.</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Age</label>
+            <input type="number" class="form-control" name="age" [(ngModel)]="predictData.age"
+              aria-describedby="emailHelp">
+            
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Resting Blood Pressure (mmHg) </label>
+            <input type="number" class="form-control" name="trestbps" [(ngModel)]="predictData.trestbps"
+              aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Resting blood pressure (in mmHg on admission to the
+              hospital).</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">ECG Value</label>
+            <input type="number" class="form-control" name="restecg" [(ngModel)]="predictData.restecg"
+              aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Resting Electrocardiographic Results</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">ST Depression</label>
+            <input type="number" class="form-control" name="oldpeak" [(ngModel)]="predictData.oldpeak"
+              aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">ST depression induced by exercise relative to
+              rest.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1">Thal</label>
+            <select class="form-control" name="thal" [(ngModel)]="predictData.thal" (change)="onChange($event)">
+              <option [value]="0">0</option>
+              <option [value]="1">1</option>
+              <option [value]="2">2</option>
+              <option [value]="3">3</option>
+            </select>
+
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="exampleSelect1">Sex</label>
+            <select class="form-control" name="sex" [(ngModel)]="predictData.sex" (change)="onChange($event)">
+              <option [value]="0">Female</option>
+              <option [value]="1">Male</option>
+            </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Serum Cholestoral (mg/dl) </label>
+            <input type="number" class="form-control" name="chol" [(ngModel)]="predictData.chol"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Maximum Heart Rate</label>
+            <input type="number" class="form-control" name="thalach" [(ngModel)]="predictData.thalach"
+              aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">Maximum Heart Rate have achieved during test.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1">ST segment Slope</label>
+            <select class="form-control" name="slope" [(ngModel)]="predictData.slope" (change)="onChange($event)">
+              <option [value]="0">Upsloping</option>
+              <option [value]="1">Flat </option>
+              <option [value]="2">Downsloping </option>
+            </select>
+            <small id="emailHelp" class="form-text text-muted">The slope of the peak exercise ST segment </small>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="exampleSelect1">Chest Pain Type</label>
+            <select class="form-control" name="cp" [(ngModel)]="predictData.cp" (change)="onChange($event)">
+              <option [value]="0">Not Presence</option>
+              <option [value]="1">Typical Angina </option>
+              <option [value]="2">Atypical Angina</option>
+              <option [value]="3">Non-anginal Pain </option>
+              <option [value]="3">Asymptomatic </option>
+            </select>
+           
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1">Fasting Blood Sugar</label>
+            <select class="form-control" name="fbs" [(ngModel)]="predictData.fbs" (change)="onChange($event)">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+            <small id="emailHelp" class="form-text text-muted">if fasting blood sugar exceeds 120 mg/dl mark as Yes if
+              not No.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1">Have exercise induced angina?</label>
+            <select class="form-control" name="exang" [(ngModel)]="predictData.exang" (change)="onChange($event)">
+              <option [value]="1">Yes</option>
+              <option [value]="0">No</option>
+            </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="exampleSelect1">Number of Major Vessels colored by Flourosopy</label>
+            <select class="form-control" name="ca" [(ngModel)]="predictData.ca" (change)="onChange($event)">
+              <option [value]="0">0</option>
+              <option [value]="1">1</option>
+              <option [value]="2">2</option>
+              <option [value]="3">3</option>
+            </select>
+            <small id="emailHelp" class="form-text text-muted">The slope of the peak exercise ST segment </small>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+
+          <button type="button" (click)="getPrediction()" *ngIf="!buttonClicked"
+            class="btn btn-primary btn-lg float-right">View Results</button>
+          <button type="button" *ngIf="buttonClicked" class="btn btn-primary btn-lg float-right"><span
+              class="spinner-border text-secondary" role="status" aria-hidden="true"></span>
+            Predicting..</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"></h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="dateOfBirth">Date of birth</label>
+          <div class="input-group">
+            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+              #dp="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template>
+</div>
